@@ -35,5 +35,16 @@ module.exports = {
       .tap(options => {
         return options
       })
+  },
+  css: {
+    loaderOptions: {
+      scss: {
+        // additionalData: `@import "@/assets/scss/_variables.scss";`
+        additionalData: [
+          `@import "@/assets/scss/_variables.scss";`,
+          `@import "@/theme/theme.scss";`
+        ]
+      }
+    }
   }
 }

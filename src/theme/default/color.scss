@@ -1,0 +1,70 @@
+@import "src/assets/scss/variables";
+
+$white: #fff;
+$black: #000;
+
+$gray-1: #ffffff;
+$gray-2: #fafafa;
+$gray-3: #f5f5f5;
+$gray-4: #f0f0f0;
+$gray-5: #d9d9d9;
+$gray-6: #bfbfbf;
+$gray-7: #8c8c8c;
+$gray-8: #595959;
+$gray-9: #434343;
+$gray-10: #262626;
+$gray-11: #1f1f1f;
+$gray-12: #141414;
+$gray-13: #000000;
+
+$primary-color: #1890ff;
+$success-color: #52c41a;
+$warning-color: #faad14;
+$error-color: $warning-color;
+
+$primary-1: fade($primary-color, 90%);
+$primary-2: fade($primary-color, 80%);
+$primary-3: fade($primary-color, 70%);
+
+$title-color: fade(#000, 85%);
+$text-color: fade($black, 65%);
+$text-color-second: fade($black, 45%);
+
+// Layout
+$layout-body-background: #f0f2f5;
+$layout-header-background: #001529;
+$layout-footer-background: $layout-body-background;
+$layout-header-height: 64px;
+$layout-header-padding: 0 50px;
+$layout-footer-padding: 24px 50px;
+$layout-sider-background: $layout-header-background;
+$layout-trigger-height: 48px;
+$layout-trigger-background: #002140;
+$layout-trigger-color: #fff;
+$layout-zero-trigger-width: 36px;
+$layout-zero-trigger-height: 42px;
+// Layout light theme
+$layout-sider-background-light: #fff;
+$layout-trigger-background-light: #fff;
+$layout-trigger-color-light: $text-color;
+
+$layout-bg-color: $layout-body-background;
+$base-bg-color: #fff;
+$hover-bg-color: rgba(0, 0, 0, 0.025);
+$border-color: #e8e8e8;
+$shadow-color: rgba(0, 0, 0, 0.15);
+
+$text-color-inverse: $text-color-inverse;
+$hover-bg-color-light: $hover-bg-color;
+$hover-bg-color-dark: fade($primary-color, 5%);
+$hover-bg-color-night: rgba(255, 255, 255, 0.025);
+$header-bg-color-dark: $layout-header-background;
+
+$shadow-down: 0 2px 8px $shadow-color;
+$shadow-up: 0 -2px 8px $shadow-color;
+$shadow-left: -2px 0 8px $shadow-color;
+$shadow-right: 2px 0 8px $shadow-color;
+
+$disabled-color: fade(#000, 25%);
+
+$theme-list: light, dark, night;

@@ -5,7 +5,11 @@ import router from './router'
 import store from './store'
 import './plugins/ant-design-vue.js'
 
+import CommonLayout from '@/layouts/CommonLayout'
+
 Vue.config.productionTip = false
+
+Vue.component('common-layout', CommonLayout)
 
 new Vue({
   router,
