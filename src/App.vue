@@ -7,11 +7,15 @@
 </template>
 
 <script>
-const defaultLayout = 'no'
+const defaultLayout = 'default'
 export default {
   name: 'App',
   computed: {
     layout: function() {
+      let params = {
+        username: 'admin',
+        password: '890*()iop'
+      }
       return (this.$route.meta.layout || defaultLayout) + '-layout'
     }
   }

@@ -7,7 +7,7 @@
       <h2>RFID application</h2>
     </div>
     <div class="login">
-      <a-form :form="form" @submit="onSubmit">
+      <a-form :form="form" @submit.prevent="onSubmit">
         <a-form-item>
           <a-input
             v-decorator="[
@@ -58,7 +58,7 @@
         <a-form-item>
           <a-button
             :loading="logging"
-            style="width: 100%;margin-top: 24px"
+            style="width: 100%; margin-top: 24px"
             size="large"
             html-type="submit"
             type="primary"
@@ -71,6 +71,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Login',
   components: {},
@@ -82,11 +84,9 @@ export default {
     }
   },
   methods: {
-    // ...mapMutations('user', ['setUser', 'setPermissions', 'setRoles']),
-    onSubmit(e) {
-      e.preventDefault()
-      console.log(this.form)
-      this.form.validateFields(err => {
+    ...mapActions('user', ['login']),
+    onSubmit() {
+      this.form.validateFields(async err => {
         if (!err) {
           this.logging = true
           const username = this.form.getFieldValue('username')
@@ -95,19 +95,17 @@ export default {
             username,
             password
           }
-          console.log(payload)
+          try {
+            await this.login(payload)
+            const { redirect } = this.$router.currentRoute.query || '/'
+            await this.$router.push({ path: redirect })
+          } catch (e) {
+            console.error(e)
+          } finally {
+            this.logging = false
+          }
         }
       })
-    },
-    afterLogin(res) {
-      this.logging = false
-      const loginRes = res.data
-      if (loginRes.status === 200) {
-        console.log(loginRes)
-        // Get routing configuration
-      } else {
-        this.error = loginRes.message
-      }
     }
   }
 }
@@ -135,8 +133,7 @@ export default {
       .title {
         font-size: 33px;
         color: $title-color;
-        font-family: 'Myriad Pro', 'Helvetica Neue', Arial, Helvetica,
-          sans-serif;
+        font-family: 'Myriad Pro', 'Helvetica Neue', Arial, Helvetica, sans-serif;
         font-weight: 600;
         position: relative;
         top: 2px;

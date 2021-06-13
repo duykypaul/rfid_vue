@@ -40,10 +40,7 @@ module.exports = {
     loaderOptions: {
       scss: {
         // additionalData: `@import "@/assets/scss/_variables.scss";`
-        additionalData: [
-          `@import "@/assets/scss/_variables.scss";`,
-          `@import "@/theme/theme.scss";`
-        ]
+        additionalData: `@import "@/theme/theme.scss";`
       }
     }
   }
