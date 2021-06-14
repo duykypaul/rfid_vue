@@ -52,7 +52,7 @@
           </a-input>
         </a-form-item>
         <div>
-          <a-checkbox :checked="true">Auto login</a-checkbox>
+          <a-checkbox>Auto login</a-checkbox>
           <a style="float: right">Forget password</a>
         </div>
         <a-form-item>
@@ -97,8 +97,13 @@ export default {
           }
           try {
             await this.login(payload)
-            const { redirect } = this.$router.currentRoute.query || '/'
-            await this.$router.push({ path: redirect })
+            const { redirect } = this.$router.currentRoute.query
+            console.log('redirect: ', redirect)
+            if (redirect) {
+              await this.$router.push({ path: redirect })
+            } else {
+              await this.$router.push({ path: '/' })
+            }
           } catch (e) {
             console.error(e)
           } finally {

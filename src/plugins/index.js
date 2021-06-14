@@ -1,3 +1,4 @@
+/*
 import VueAxiosPlugin from '@/plugins/axios'
 
 const Plugins = {
@@ -7,3 +8,4 @@ const Plugins = {
 }
 
 export default Plugins
+*/

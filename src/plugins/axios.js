@@ -13,7 +13,7 @@ const TYPE_TOKEN = 'Bearer'
 let config = {
   baseURL: process.env.VUE_APP_API_BASE_URL || '',
   timeout: 60 * 1000, // Timeout
-  withCredentials: true // Check cross-site Access-Control
+  // withCredentials: true // Check cross-site Access-Control
 }
 
 const _axios = axios.create(config)
@@ -28,7 +28,7 @@ _axios.interceptors.request.use(
   error => {
     // Do something with request error
     notification.error({
-      message: 'Có lỗi xảy ra'
+      message: 'An error occurred'
     })
     return Promise.reject(error.response.data)
   }
@@ -46,7 +46,7 @@ _axios.interceptors.response.use(
   }
 )
 
-Plugin.install = function(Vue, options) {
+/*Plugin.install = function(Vue, options) {
   Vue.axios = _axios
   window.axios = _axios
   Object.defineProperties(Vue.prototype, {
@@ -74,8 +74,10 @@ const VueAxiosPlugin = {
       }
     })
   }
-}
+}*/
 
 // Vue.use(Plugin)
 
-export default VueAxiosPlugin
+// export default VueAxiosPlugin
+
+export default _axios

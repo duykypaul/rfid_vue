@@ -1,13 +1,13 @@
 import Vue from 'vue'
+import axios from '@/plugins/axios'
 export const login = params => {
-  console.log('Vue.$axios: ', this)
-  return Vue.$axios.get().post('/auth', params)
+  return axios.post('/auth', params)
 }
 
 export const getToken = async idToken => {
-  return Vue.$axios.instance().post('/auth/get-token', { idToken })
+  return axios.post('/auth/get-token', { idToken })
 }
 
 export const getUserInfo = () => {
-  return Vue.$axios.instance().get('/auth/me')
+  return axios.get('/auth/me')
 }

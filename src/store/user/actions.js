@@ -6,11 +6,17 @@ export default {
     try {
       const res = await login(paramsLogin)
       console.log('res: ', res)
-      /*commit('SET_ACCESS_TOKEN', res?.result?.token)
-      await dispatch('getUserInfo')*/
+      if (res.status === 200) {
+        commit('SET_ACCESS_TOKEN', res?.token)
+        commit('SET_USER_INFO', res?.user)
+      } else {
+        notification.error({
+          message: res.message
+        })
+      }
     } catch (e) {
       notification.error({
-        message: 'Có lỗi xảy ra',
+        message: 'An error occurred',
         description: JSON.stringify(e)
       })
       return Promise.reject(e)
