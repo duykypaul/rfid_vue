@@ -1,6 +1,7 @@
 export default {
   SET_USER_INFO: (state, info) => {
     state.userInfo = info
+    console.log('state: ', state)
   },
   SET_ACCESS_TOKEN: (state, token) => {
     state.accessToken = token

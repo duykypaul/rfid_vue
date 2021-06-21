@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import axios from '@/plugins/axios'
 export const login = params => {
   return axios.post('/auth', params)
