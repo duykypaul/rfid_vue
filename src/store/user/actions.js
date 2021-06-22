@@ -1,5 +1,5 @@
 import { notification } from 'ant-design-vue'
-import { login, getUserInfo } from '@/services'
+import { getUserInfo, login } from '@/services'
 
 export default {
   async login({ commit, dispatch }, paramsLogin) {
@@ -8,8 +8,7 @@ export default {
       console.log('res: ', res)
       if (res.status === 200) {
         commit('SET_ACCESS_TOKEN', res?.token)
-        commit('SET_USER_INFO', res?.user)
-        return Promise.resolve(res?.user)
+        dispatch('getUserInfo')
       } else {
         notification.error({
           message: res.message
@@ -27,9 +26,7 @@ export default {
   async getUserInfo({ commit, state }) {
     try {
       if (state.accessToken) {
-        const res = await getUserInfo()
-        console.log('31 res: ', res)
-        const userInfo = res
+        const userInfo = await getUserInfo()
         commit('SET_USER_INFO', userInfo)
         return Promise.resolve(userInfo)
       } else {

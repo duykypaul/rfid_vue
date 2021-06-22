@@ -14,7 +14,7 @@ Vue.config.productionTip = false
 Vue.component('common-layout', CommonLayout)
 Vue.component('default-layout', DefaultLayout)
 // Vue.use(Plugins)
-Vue.prototype.$axios = axios
+// Vue.prototype.$axios = axios
 
 new Vue({
   router,

@@ -53,45 +53,28 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  let { userInfo, accessToken } = store.state.user
+  NProgress.start()
+  let { userInfo } = store.state.user
   if (!userInfo) {
     userInfo = await store.dispatch('user/getUserInfo')
     if (!userInfo) {
       if (to.matched.some(record => record.meta.requiresAuth)) {
         next({ path: '/login' })
       } else next()
-    } else next()
+    } else {
+      if (to.name === 'Login') {
+        next({ path: from.path })
+      } else next()
+    }
   } else {
-    next()
+    if (to.name === 'Login') {
+      next({ path: from.path })
+    } else next()
   }
 })
 
-// router.beforeEach((to, from, next) => {
-//   // NProgress.start()
-//   let { userInfo } = store.state.user
-//   if (!userInfo) {
-//     next({ path: '/login' })
-//     /*// userInfo = await store.dispatch('user/getUserInfo')
-//     // console.log('52 userInfo: ', userInfo)
-//     if (!userInfo) {
-//       next({ path: '/login' })
-//     } else {
-//       if (to.path === '/login') {
-//         next({ path: '/' })
-//       }
-//       next()
-//     }*/
-//   } else {
-//     console.log('to.path: ', to.path)
-//     // if (to.path === '/login') {
-//     //   next({ path: '/' })
-//     // }
-//     next()
-//   }
-// })
-//
-// router.afterEach(() => {
-//   // NProgress.done()
-// })
+router.afterEach(() => {
+  NProgress.done()
+})
 
 export default router
