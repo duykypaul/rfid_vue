@@ -12,19 +12,26 @@ const routes = [
   {
     path: '/',
     name: 'Home',
+    meta: {
+      requiresAuth: true
+    },
     component: () => import('@/views/Home')
   },
   {
     path: '/login',
     name: 'Login',
     meta: {
-      layout: 'common'
+      layout: 'common',
+      requiresAuth: false
     },
     component: () => import('@/views/login')
   },
   {
     path: '/about',
     name: 'About',
+    meta: {
+      requiresAuth: true
+    },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -32,6 +39,9 @@ const routes = [
   },
   {
     path: '*',
+    meta: {
+      requiresAuth: true
+    },
     component: () => import('@/views/404')
   }
 ]
@@ -43,32 +53,45 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  NProgress.start()
-  let { userInfo } = store.state.user
-  console.log('userInfo: ', userInfo)
-  console.log('store.state.user: ', store.state.user)
+  let { userInfo, accessToken } = store.state.user
   if (!userInfo) {
     userInfo = await store.dispatch('user/getUserInfo')
-    console.log('52 userInfo: ', userInfo)
     if (!userInfo) {
-      next({ path: '/login' })
-    } else {
-      if (to.path === '/login') {
-        next({ path: '/' })
-      }
-      next()
-    }
+      if (to.matched.some(record => record.meta.requiresAuth)) {
+        next({ path: '/login' })
+      } else next()
+    } else next()
   } else {
-    console.log('to.path: ', to.path)
-    // if (to.path === '/login') {
-    //   next({ path: '/' })
-    // }
     next()
   }
 })
 
-router.afterEach(() => {
-  NProgress.done()
-})
+// router.beforeEach((to, from, next) => {
+//   // NProgress.start()
+//   let { userInfo } = store.state.user
+//   if (!userInfo) {
+//     next({ path: '/login' })
+//     /*// userInfo = await store.dispatch('user/getUserInfo')
+//     // console.log('52 userInfo: ', userInfo)
+//     if (!userInfo) {
+//       next({ path: '/login' })
+//     } else {
+//       if (to.path === '/login') {
+//         next({ path: '/' })
+//       }
+//       next()
+//     }*/
+//   } else {
+//     console.log('to.path: ', to.path)
+//     // if (to.path === '/login') {
+//     //   next({ path: '/' })
+//     // }
+//     next()
+//   }
+// })
+//
+// router.afterEach(() => {
+//   // NProgress.done()
+// })
 
 export default router

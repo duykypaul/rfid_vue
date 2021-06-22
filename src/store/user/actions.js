@@ -34,6 +34,7 @@ export default {
         return Promise.resolve(userInfo)
       } else {
         commit('SET_USER_INFO', null)
+        return Promise.resolve(null)
       }
     } catch (err) {
       return Promise.resolve(null)
