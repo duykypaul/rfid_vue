@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'CommonLayout',
+  name: 'GuessLayout',
   components: {},
   computed: {}
 }

@@ -8,7 +8,7 @@ export default {
       console.log('res: ', res)
       if (res.status === 200) {
         commit('SET_ACCESS_TOKEN', res?.token)
-        dispatch('getUserInfo')
+        await dispatch('getUserInfo')
       } else {
         notification.error({
           message: res.message

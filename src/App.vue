@@ -7,7 +7,7 @@
 </template>
 
 <script>
-const defaultLayout = 'default'
+const defaultLayout = 'no'
 export default {
   name: 'App',
   computed: {

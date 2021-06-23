@@ -10,39 +10,50 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    meta: {
-      requiresAuth: true
-    },
-    component: () => import('@/views/Home')
-  },
-  {
     path: '/login',
     name: 'Login',
     meta: {
-      layout: 'common',
+      layout: 'guess',
       requiresAuth: false
     },
     component: () => import('@/views/login')
   },
   {
-    path: '/about',
-    name: 'About',
-    meta: {
-      requiresAuth: true
-    },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import('@/views/About')
-  },
-  {
     path: '*',
+    name: '404',
     meta: {
-      requiresAuth: true
+      layout: 'guess',
+      requiresAuth: false
     },
     component: () => import('@/views/404')
+  },
+  {
+    path: '/',
+    // name: 'Home',
+    meta: {
+      requiresAuth: true,
+      layout: 'default'
+    },
+    component: () => import('@/layouts/DefaultLayout'),
+    children: [
+      {
+        path: '',
+        name: 'Home',
+        meta: {
+          requiresAuth: true
+        },
+        component: () => import('@/views/Home')
+      },
+      {
+        path: 'about',
+        name: 'About',
+        meta: {},
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('@/views/About')
+      }
+    ]
   }
 ]
 
